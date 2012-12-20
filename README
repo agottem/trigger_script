@@ -1,0 +1,41 @@
+For detailed information on using, building, and modifying Trigger Script, please visit:
+http://www.agottem.com/trigger_script
+
+
+Building the source:
+
+Trigger Script is built using GNU Make 3.81 or higher.  GNU Make for Windows can found
+here: http://gnuwin32.sourceforge.net/packages/make.htm
+
+The parser and lexer for Trigger Script are generated using GNU Bison 2.4.1 and GNU
+Flex 2.5.4a.  Bison can be found here: http://gnuwin32.sourceforge.net/packages/bison.htm and
+Flex can be found here: http://gnuwin32.sourceforge.net/packages/flex.htm
+
+NOTE: Some GNU tools for Windows are sensitive to whitespaces in the installation path.  To
+      avoid any potential problems, it's recommended you install GNU Make, Bison, and Flex
+      to a path such as 'C:\GnuWin32\' instead of 'C:\Program Files\GnuWin32\'.
+
+Trigger Script currently targets the Microsoft Visual C Compiler.  To build, launch a Visual
+Studio command prompt, or any command prompt which has the MSVC toolchain available.  Verify
+GNU Make, Bison, and Flex are all available in your path.
+
+To start the build, CD to the path where the Trigger Script source is installed.  From that
+path, run the following command:
+
+    Prompt> make
+
+Make will build everything, and place the output in the folder named 'build', located at the
+root of the Trigger Script source location.  By default, a release build is performed.  If
+a debug build is desired, run the command:
+
+    Prompt> make config=debug
+
+The output for debug builds is also directed to the build folder.
+
+Cleaning a build can be done specifying the target 'clean'.  Clean will delete all files
+previously built for the specified configuration.  For example:
+
+    Prompt> make config=debug clean
+    Prompt> make clean
+
+

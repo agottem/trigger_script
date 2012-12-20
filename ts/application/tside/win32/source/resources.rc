@@ -1,0 +1,301 @@
+/*
+ * Copyright 2011 Andrew Gottemoller.
+ *
+ * This software is a copyrighted work licensed under the terms of the
+ * Trigger Script license.  Please consult the file "TS_LICENSE" for
+ * details.
+ */
+
+#include "resources.h"
+#include "winresrc.h"
+#include "winres.h"
+
+
+LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_US
+
+
+TSIDE_D_IDE DIALOGEX 0, 0, 400, 350
+STYLE DS_SETFONT|DS_MODALFRAME|DS_FIXEDSYS|DS_CENTER|WS_OVERLAPPEDWINDOW|WS_CLIPCHILDREN
+CAPTION "TS IDE"
+MENU TSIDE_M_IDE
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+END
+
+TSIDE_D_EDITOR DIALOGEX 0, 0, 400, 350
+STYLE DS_SETFONT|DS_FIXEDSYS|DS_CONTROL|WS_CHILD|WS_VISIBLE
+EXSTYLE WS_EX_CONTROLPARENT
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    CONTROL         "", TSIDE_C_EDITOR_FILE_TABS, "SysTabControl32", WS_TABSTOP, 0, 0, 400, 350
+END
+
+TSIDE_D_SEARCH_TEXT DIALOGEX 0, 0, 400, 41
+STYLE DS_SETFONT|DS_FIXEDSYS|DS_CONTROL|WS_CHILD
+EXSTYLE WS_EX_CONTROLPARENT
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    RTEXT           "Find:",          IDC_STATIC,                          0,     4,     40,    14
+    EDITTEXT                          TSIDE_C_SEARCH_TEXT_FIND_INPUT,     42,     2,    200,    14,    ES_AUTOHSCROLL|WS_TABSTOP
+    DEFPUSHBUTTON   "Find Next",      TSIDE_C_SEARCH_TEXT_FIND_NEXT,     248,     2,     60,    14,    WS_TABSTOP|BS_DEFPUSHBUTTON
+    PUSHBUTTON      "Find Previous",  TSIDE_C_SEARCH_TEXT_FIND_PREV,     312,     2,     60,    14,    WS_TABSTOP
+    RTEXT           "Replace:",       IDC_STATIC,                          0,    21,     40,    14
+    EDITTEXT                          TSIDE_C_SEARCH_TEXT_REPLACE_INPUT,  42,    21,    200,    14,    ES_AUTOHSCROLL|WS_TABSTOP
+    PUSHBUTTON      "Replace",        TSIDE_C_SEARCH_TEXT_REPLACE_NEXT,  248,    21,     60,    14,    WS_TABSTOP
+    PUSHBUTTON      "Replace All",    TSIDE_C_SEARCH_TEXT_REPLACE_ALL,   312,    21,     60,    14,    WS_TABSTOP
+END
+
+TSIDE_D_SEARCH_GOTO DIALOGEX 0, 0, 400, 21
+STYLE DS_SETFONT|DS_FIXEDSYS|DS_CONTROL|WS_CHILD
+EXSTYLE WS_EX_CONTROLPARENT
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    RTEXT           "Line Number:",   IDC_STATIC,                          0,     4,     50,    14
+    EDITTEXT                          TSIDE_C_SEARCH_GOTO_LINE_INPUT,     52,     2,     50,    14,    ES_AUTOHSCROLL|ES_NUMBER|WS_TABSTOP
+    DEFPUSHBUTTON   "Goto Line",      TSIDE_C_SEARCH_GOTO_PERFORM_GOTO,  106,     2,     60,    14,    WS_TABSTOP|BS_DEFPUSHBUTTON
+END
+
+TSIDE_D_RUN DIALOGEX 0, 0, 300, 275
+STYLE DS_SETFONT|DS_MODALFRAME|DS_FIXEDSYS|DS_CENTER|WS_POPUP|WS_CAPTION|WS_SYSMENU
+CAPTION "Run Vitals"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    GROUPBOX        "Parameters",          IDC_STATIC,                        2,   2,     296,      64
+    LTEXT           "This run will be invoked with the paremeters specified below.  If different arguments are desired, modify the invocation statement below.", IDC_STATIC, 12, 12, 205, 28
+    DEFPUSHBUTTON   "Run"                  TSIDE_C_RUN_COMPILE_AND_RUN,     225,  41,      64,      14,    WS_TABSTOP|BS_DEFPUSHBUTTON
+    PUSHBUTTON      "Stop"                 TSIDE_C_RUN_STOP,                225,  24,      64,      14,    WS_TABSTOP|WS_DISABLED
+    EDITTEXT                               TSIDE_C_RUN_INVOCATION_INPUT,     12,  41,     162,      14,    ES_AUTOHSCROLL|WS_TABSTOP
+    CHECKBOX        "Debug",               TSIDE_C_RUN_DEBUG,               183,  41,      42,      14,    WS_TABSTOP|BS_AUTOCHECKBOX
+    GROUPBOX        "Notifications",       IDC_STATIC,                        2,  69,     296,     205
+    CONTROL         "",                    TSIDE_C_RUN_NOTIFICATION_LIST, "SysListView32",  LVS_REPORT|LVS_SINGLESEL|WS_TABSTOP|WS_BORDER, 12, 81, 276, 165
+    PUSHBUTTON      "Clear Notifications", TSIDE_C_RUN_CLEAR_NOTIFICATIONS, 204,  252,     84,      14,    WS_TABSTOP
+END
+
+TSIDE_D_REFERENCE DIALOGEX 0, 0, 550, 300
+STYLE DS_SETFONT|DS_MODALFRAME|DS_FIXEDSYS|DS_CENTER|WS_POPUP|WS_CAPTION|WS_SYSMENU
+CAPTION "TS Reference"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    CONTROL         "", TSIDE_C_REFERENCE_TABS, "SysTabControl32", WS_TABSTOP, 2, 2, 546, 296
+END
+
+TSIDE_D_REF_PLUGINS DIALOGEX 0, 0, 546, 296
+STYLE DS_SETFONT|DS_FIXEDSYS|DS_CONTROL|WS_CHILD
+EXSTYLE WS_EX_CONTROLPARENT
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    LTEXT           "Category:",               IDC_STATIC,                            5,      4,      100,       10
+    LISTBOX                                    TSIDE_C_REF_PLUGINS_CATEGORY,          4,     15,      100,      260,      LBS_SORT|LBS_NOTIFY|LBS_NOINTEGRALHEIGHT|WS_VSCROLL| WS_TABSTOP
+    LTEXT           "Function:",               IDC_STATIC,                          111,      4,      100,       10
+    LISTBOX                                    TSIDE_C_REF_PLUGINS_FUNCTION,        110,     15,      100,      260,      LBS_SORT|LBS_NOTIFY|LBS_NOINTEGRALHEIGHT|WS_VSCROLL| WS_TABSTOP
+    LTEXT           "Documentation:",          IDC_STATIC,                          217,      4,      100,       10
+    CONTROL         "",                        TSIDE_C_REF_PLUGINS_DOCUMENTATION, "Scintilla",    WS_TABSTOP|WS_BORDER,    216,     15,      319,      240
+    DEFPUSHBUTTON   "Add Function to Code",    TSIDE_C_REF_PLUGINS_INSERT_FUNCTION, 451,    261,       84,       14,      BS_DEFPUSHBUTTON|WS_TABSTOP
+END
+
+TSIDE_D_REF_TEMPLATES DIALOGEX 0, 0, 546, 296
+STYLE DS_SETFONT|DS_FIXEDSYS|DS_CONTROL|WS_CHILD
+EXSTYLE WS_EX_CONTROLPARENT
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    LTEXT           "Category:",               IDC_STATIC,                           5,      4,      100,       10
+    LISTBOX                                    TSIDE_C_REF_TEMPLATES_CATEGORY,       4,     15,      100,      260,      LBS_SORT|LBS_NOTIFY|LBS_NOINTEGRALHEIGHT|WS_VSCROLL| WS_TABSTOP
+    LTEXT           "Template:",               IDC_STATIC,                         111,      4,      100,       10
+    LISTBOX                                    TSIDE_C_REF_TEMPLATES_TEMPLATE,     110,     15,      100,      260,      LBS_SORT|LBS_NOTIFY|LBS_NOINTEGRALHEIGHT|WS_VSCROLL| WS_TABSTOP
+    LTEXT           "Template Content:",       IDC_STATIC,                         217,      4,      100,       10
+    CONTROL         "",                        TSIDE_C_REF_TEMPLATES_CONTENT, "Scintilla",    WS_TABSTOP|WS_BORDER,    216,     15,      319,      240
+    DEFPUSHBUTTON   "Use Template",            TSIDE_C_REF_TEMPLATES_USE_TEMPLATE, 451,    261,       84,       14,      BS_DEFPUSHBUTTON|WS_TABSTOP
+END
+
+TSIDE_D_REF_SYNTAX DIALOGEX 0, 0, 546, 296
+STYLE DS_SETFONT|DS_FIXEDSYS|DS_CONTROL|WS_CHILD
+EXSTYLE WS_EX_CONTROLPARENT
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    LTEXT           "Syntax Topic:",           IDC_STATIC,                           5,      4,      130,       10
+    LISTBOX                                    TSIDE_C_REF_SYNTAX_SYNTAX,            4,     15,      130,      260,      LBS_SORT|LBS_NOTIFY|LBS_NOINTEGRALHEIGHT|WS_VSCROLL| WS_TABSTOP
+    LTEXT           "Overview:",               IDC_STATIC,                         141,      4,      100,       10
+    CONTROL         "",                        TSIDE_C_REF_SYNTAX_CONTENT, "Scintilla",    WS_TABSTOP|WS_BORDER,   140,     15,      395,      260
+END
+
+TSIDE_D_SELECT DIALOGEX 0, 0, 250, 273
+STYLE DS_SETFONT|DS_MODALFRAME|DS_FIXEDSYS|DS_CENTER|WS_POPUP|WS_CAPTION|WS_SYSMENU
+CAPTION "Select Template"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    LTEXT           "Select a template to use as a starting point for your script.  The list of templates can be returned to later through the reference window.",  IDC_STATIC     7,      5,      226,       20
+    LISTBOX                             TSIDE_C_SELECT_TEMPLATES,      6,     23,      238,      221,      LBS_SORT|LBS_NOTIFY|LBS_NOINTEGRALHEIGHT|WS_VSCROLL| WS_TABSTOP
+    DEFPUSHBUTTON   "Use Template",     TSIDE_C_SELECT_USE_TEMPLATE,  161,   251,       84,       14,      BS_DEFPUSHBUTTON|WS_TABSTOP
+END
+
+
+TSIDE_B_IDE_TOOLBAR  BITMAP "..\\resources\\embedded\\editor_toolbar.bmp"
+
+TSIDE_I_GUI_MAIN      ICON "..\\resources\\embedded\\main.ico"
+TSIDE_I_GUI_RUN       ICON "..\\resources\\embedded\\run.ico"
+TSIDE_I_GUI_REFERENCE ICON "..\\resources\\embedded\\reference.ico"
+
+
+TSIDE_A_GUI ACCELERATORS
+BEGIN
+    "N",    TSIDE_M_IDE_FILE_NEW,                   VIRTKEY, CONTROL
+    "O",    TSIDE_M_IDE_FILE_OPEN,                  VIRTKEY, CONTROL
+    "S",    TSIDE_M_IDE_FILE_SAVE,                  VIRTKEY, CONTROL
+    VK_F4,  TSIDE_M_IDE_FILE_EXIT,                  VIRTKEY, ALT
+    "F",    TSIDE_M_IDE_SEARCH_FIND,                VIRTKEY, CONTROL
+    VK_F3,  TSIDE_M_IDE_SEARCH_FIND_NEXT,           VIRTKEY
+    VK_F3,  TSIDE_M_IDE_SEARCH_FIND_PREVIOUS,       VIRTKEY, SHIFT
+    "H",    TSIDE_M_IDE_SEARCH_REPLACE,             VIRTKEY, CONTROL
+    "G",    TSIDE_M_IDE_SEARCH_GOTO,                VIRTKEY, CONTROL
+    VK_F5,  TSIDE_M_IDE_RUN_START,                  VIRTKEY
+    VK_F5,  TSIDE_M_IDE_RUN_STOP,                   VIRTKEY, SHIFT
+    VK_F6,  TSIDE_M_IDE_RUN_DEBUG,                  VIRTKEY
+    VK_F7,  TSIDE_M_IDE_RUN_CONTINUE,               VIRTKEY
+    VK_F10, TSIDE_M_IDE_RUN_STEP,                   VIRTKEY
+    VK_F11, TSIDE_M_IDE_RUN_STEP_INTO,              VIRTKEY
+    VK_F9,  TSIDE_M_IDE_RUN_VARIABLES,              VIRTKEY
+    VK_F1,  TSIDE_M_IDE_REFERENCE_PLUGIN_FUNCTIONS, VIRTKEY
+    "R",    TSIDE_M_IDE_REFERENCE_PLUGIN_FUNCTIONS, VIRTKEY, CONTROL
+END
+
+
+TSIDE_M_IDE MENU
+BEGIN
+    POPUP "&File"
+    BEGIN
+        MENUITEM "&New\tCtrl+N",                    TSIDE_M_IDE_FILE_NEW
+        MENUITEM "&Open...\tCtrl+O",                TSIDE_M_IDE_FILE_OPEN
+        MENUITEM "&Save\tCtrl+S",                   TSIDE_M_IDE_FILE_SAVE
+        MENUITEM "Save &As...",                     TSIDE_M_IDE_FILE_SAVE_AS
+        MENUITEM "Sav&e All",                       TSIDE_M_IDE_FILE_SAVE_ALL
+        MENUITEM "&Close",                          TSIDE_M_IDE_FILE_CLOSE
+        MENUITEM "Close All",                       TSIDE_M_IDE_FILE_CLOSE_ALL
+        MENUITEM SEPARATOR
+        MENUITEM "E&xit\tAlt+F4",                   TSIDE_M_IDE_FILE_EXIT
+    END
+    POPUP "&Search"
+    BEGIN
+        MENUITEM "&Find\tCtrl+F",                   TSIDE_M_IDE_SEARCH_FIND
+        MENUITEM "Find &Next\tF3",                  TSIDE_M_IDE_SEARCH_FIND_NEXT
+        MENUITEM "Find &Previous\tShift+F3",        TSIDE_M_IDE_SEARCH_FIND_PREVIOUS
+        MENUITEM SEPARATOR
+        MENUITEM "&Replace\tCtrl+H",                TSIDE_M_IDE_SEARCH_REPLACE
+        MENUITEM "Replace Ne&xt",                   TSIDE_M_IDE_SEARCH_REPLACE_NEXT
+        MENUITEM "Replace &All",                    TSIDE_M_IDE_SEARCH_REPLACE_ALL
+        MENUITEM SEPARATOR
+        MENUITEM "&Go to Line Number\tCtrl+G",      TSIDE_M_IDE_SEARCH_GOTO
+    END
+    POPUP "&Edit"
+    BEGIN
+        MENUITEM "&Undo\tCtrl+Z",                   TSIDE_M_IDE_EDIT_UNDO
+        MENUITEM "&Redo\tCtrl+Y",                   TSIDE_M_IDE_EDIT_REDO
+        MENUITEM SEPARATOR
+        MENUITEM "&Cut\tCtrl+X",                    TSIDE_M_IDE_EDIT_CUT
+        MENUITEM "Copy\tCtrl+C",                    TSIDE_M_IDE_EDIT_COPY
+        MENUITEM "&Paste\tCtrl+V",                  TSIDE_M_IDE_EDIT_PASTE
+        MENUITEM SEPARATOR
+        MENUITEM "Select &All\tCtrl+A",             TSIDE_M_IDE_EDIT_SELECT_ALL
+    END
+    POPUP "&Reference"
+    BEGIN
+        MENUITEM "&Language Syntax",                TSIDE_M_IDE_REFERENCE_LANGUAGE_SYNTAX
+        MENUITEM "&Function Documentation\tCtrl+R", TSIDE_M_IDE_REFERENCE_PLUGIN_FUNCTIONS
+        MENUITEM "&Code Templates",                 TSIDE_M_IDE_REFERENCE_TEMPLATES
+    END
+    POPUP "R&un"
+    BEGIN
+        MENUITEM "&Start\tF5",                      TSIDE_M_IDE_RUN_START
+        MENUITEM "S&top\tShift+F5",                 TSIDE_M_IDE_RUN_STOP
+        MENUITEM "&Debug\tF6"                       TSIDE_M_IDE_RUN_DEBUG
+        MENUITEM SEPARATOR
+        MENUITEM "&Continue\tF7"                    TSIDE_M_IDE_RUN_CONTINUE
+        MENUITEM "Ste&p\tF10"                       TSIDE_M_IDE_RUN_STEP
+        MENUITEM "Step &Into\tF11"                  TSIDE_M_IDE_RUN_STEP_INTO
+        MENUITEM "View &Variables\tF9"              TSIDE_M_IDE_RUN_VARIABLES
+    END
+    POPUP "&Help"
+    BEGIN
+        MENUITEM "&About"                           TSIDE_M_IDE_HELP_ABOUT
+    END
+END
+
+
+STRINGTABLE
+BEGIN
+    TSIDE_S_PRODUCT_NAME                   "TS IDE"
+    TSIDE_S_TS_FILE_EXTENSION              "ts"
+    TSIDE_S_GENERIC_ERROR_CAPTION          "TS IDE Error"
+    TSIDE_S_NEW_FILE_TAB_NAME              "New File"
+    TSIDE_S_ADD_FILE_TAB_ERROR             "The selected file buffer could not be transitioned to.  Your system must be running low on resources, you should restart."
+    TSIDE_S_SAVE_MODIFIED_FILE             "The file has been modified, do you wish to save before continuing?"
+    TSIDE_S_PROCEED_CAPTION                "Proceed?"
+    TSIDE_S_SAVE_FILE_FAILED               "The file could not be saved, verify the file is not in use and try again."
+    TSIDE_S_OPEN_FILE_ERROR                "The selected file could not be opened.  Please verify the file exists and you have permissions to access it."
+    TSIDE_S_FIND_END_OF_DOCUMENT_REACHED   "The end of the file has been reached, and no more instances of the search string can be found."
+    TSIDE_S_FIND_COMPLETE                  "Find Complete"
+    TSIDE_S_FIND_START_OF_DOCUMENT_REACHED "The beginning of the file has been reached, and no more instances of the search string can be found."
+    TSIDE_S_CONTINUE_UNSAVED               "Unsaved Files"
+    TSIDE_S_UNSAVED_FILES_ON_RUN           "There are modified files open which have not been saved.  Unsaved changes will not be run.  Do you want to save these changes before running?"
+    TSIDE_S_CANNOT_RUN                     "Cannot Run"
+    TSIDE_S_NO_RUNNABLE_SELECTION          "The currently selected tab is not a runnable unit.  Please select a tab that has been saved to a file prior to running."
+END
+
+STRINGTABLE
+BEGIN
+    TSIDE_S_INITIALIZE_RUN_ERROR              "A critical error has occurred and the unit cannot be run."
+    TSIDE_S_RUN_NOTIFICATION_TIME             "Time"
+    TSIDE_S_RUN_NOTIFICATION_MESSAGE          "Message"
+    TSIDE_S_NOTIFICATION_NOT_DISPLAYED        "A critical unexpected error has occurred, and a notification cannot be displayed."
+    TSIDE_S_COULD_NOT_ANNOTATE                "An unexpected error has occurred, and a notification could not be annotated in the source code."
+    TSIDE_S_CANNOT_RUN_VALIDATION_ERRORS      "There are errors with the specified script.  Make sure the script is saved in 'My Documents\\My Trigger Scripts\\Units'.  A list of errors have been added to the notification window below."
+    TSIDE_S_VALIDATION_ERRORS                 "Cannot Run"
+    TSIDE_S_VALIDATION_WARNINGS               "Run with Warnings"
+    TSIDE_S_PROMPT_RUN_VALIDATION_WARNINGS    "There were warnings encountered while validating the source code.  Do you want to run anyways?"
+    TSIDE_S_VALIDATING_SOURCE                 "Validating source..."
+    TSIDE_S_VALIDATION_COMPLETE_WITH_WARNINGS "Warnings were encountered during validation"
+    TSIDE_S_VALIDATION_COMPLETE_WITH_ERRORS   "Errors were encountered during validation"
+    TSIDE_S_VALIDATION_COMPLETE_EXECUTING     "Validation complete, beginning execution."
+    TSIDE_S_EXECUTION_ERROR_ENCOUNTERED       "An exception was encountered during execution.  See the notification window for more details.  Double clicking on a notification message will bring you to the line of code that encountered the problem."
+    TSIDE_S_EXECUTION_ERROR                   "Execution Error"
+    TSIDE_S_EXECUTION_COMPLETE_WITH_ERRORS    "Execution error encountered, execution halted"
+END
+
+STRINGTABLE
+BEGIN
+    TSIDE_S_EXECUTION_COMPLETE                "Execution complete"
+    TSIDE_S_CANNOT_PRINT_VARIABLE             "Unable to print variable information."
+    TSIDE_S_CANNOT_CLOSE_WHILE_RUNNING        "A trigger script is currently executing.  TS IDE Cannot be closed while code is executing.  Stop execution and try again."
+    TSIDE_S_RUN_IN_PROGRESS                   "Trigger Script Running"
+    TSIDE_S_EXECUTION_MANUALLY_STOPPED        "Execution manually stopped"
+    TSIDE_S_CANNOT_MODIFY_WHILE_RUNNING       "Source code cannot be modified while executing."
+    TSIDE_S_TOOLTIP_NEW_FILE                  "New"
+    TSIDE_S_TOOLTIP_OPEN_FILE                 "Open"
+    TSIDE_S_TOOLTIP_SAVE_FILE                 "Save"
+    TSIDE_S_TOOLTIP_CLOSE_FILE                "Close"
+    TSIDE_S_TOOLTIP_FIND                      "Find"
+    TSIDE_S_TOOLTIP_GOTO                      "Goto"
+    TSIDE_S_TOOLTIP_CUT                       "Cut"
+    TSIDE_S_TOOLTIP_COPY                      "Copy"
+    TSIDE_S_TOOLTIP_PASTE                     "Paste"
+    TSIDE_S_TOOLTIP_UNDO                      "Undo"
+END
+
+STRINGTABLE
+BEGIN
+    TSIDE_S_TOOLTIP_REDO                      "Redo"
+    TSIDE_S_TOOLTIP_REFERENCE                 "Reference"
+    TSIDE_S_TOOLTIP_START                     "Start"
+    TSIDE_S_TOOLTIP_STOP                      "Stop"
+    TSIDE_S_TOOLTIP_DEBUG                     "Debug"
+    TSIDE_S_TOOLTIP_CONTINUE                  "Continue"
+    TSIDE_S_TOOLTIP_STEP                      "Step"
+    TSIDE_S_TOOLTIP_STEP_INTO                 "Step Into"
+    TSIDE_S_TOOLTIP_VARIABLES                 "Variables"
+    TSIDE_S_REFERENCE_TAB_PLUGINS             "Plugins"
+    TSIDE_S_REFERENCE_TAB_TEMPLATES           "Templates"
+    TSIDE_S_UNCATEGORIZED_FUNCTION_CATEGORY   "Uncategorized"
+    TSIDE_S_CANNOT_POPULATE_REFERENCE_DATA    "Some reference data could not be displayed."
+    TSIDE_S_REFERENCE_TAB_SYNTAX              "Language Syntax"
+    TSIDE_S_BLANK_TEMPLATE                    "<None>"
+END
+
